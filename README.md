@@ -2,6 +2,18 @@
 
 详细功能说明见 [项目功能详解](docs/项目功能详解.md)，包含用户功能、可用状态、数据字典、源码地图和参考 SQL。
 
+## 界面展示
+
+探索广场：自然语言提问、模型选择与推荐分析示例。
+
+![探索广场与推荐分析示例](docs/images/explore-home.png)
+
+侧边导航：技能、数据源、知识库、应用管理与历史任务列表。
+
+![功能导航与历史任务列表](docs/images/navigation-tasks.png)
+
+## 项目说明
+
 本目录以 **DB-GPT v0.8.2** 为基础，准备了独立 Python 环境、原版 Web 界面、数据库、电商模拟数据和 Windows 启停脚本，供后续二次开发。
 
 **当前配置：DeepSeek 在线聊天模型 + 百炼 embedding / reranker + 电商模拟数据库。** 本地 `.env` 配置模型名称、地址和密钥，`configs/online-model.toml` 使用 DeepSeek 原生聊天适配器和项目提供的百炼检索适配器。向量模型为 `text-embedding-v4`（1024 维），排序模型为 `qwen3-rerank`。已通过真实 API 和应用内部接口验证，服务启动后建立 Schema 向量索引。企业文档导入和知识问答仍需单独验收。
