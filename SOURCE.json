@@ -1,0 +1,11 @@
+{
+  "upstream": "https://github.com/eosphoros-ai/DB-GPT",
+  "release": "v0.8.2",
+  "source_url": "https://codeload.github.com/eosphoros-ai/DB-GPT/zip/refs/tags/v0.8.2",
+  "archive_sha256": "3eb21b9ba29ca33f60a07d3682e5346ab2a2beed66dadcbf2459a6d5e4427073",
+  "installation": "editable uv workspace, frozen upstream uv.lock, Python 3.11",
+  "local_patches": [
+    "patches/no-model-startup.patch"
+  ],
+  "note": "Source obtained from official tagged archive after git clone stalled."
+}

@@ -1,0 +1,45 @@
+[system]
+language = "zh"
+api_keys = []
+encrypt_key = "${env:ECOMMERCE_ENCRYPT_KEY}"
+
+[service.web]
+host = "127.0.0.1"
+port = 5670
+default_thread_pool_size = 4
+cors_allowed_origins = "http://127.0.0.1:5670,http://localhost:5670"
+
+[service.web.database]
+type = "sqlite"
+path = "${env:ECOMMERCE_META_DB}"
+
+[rag]
+similarity_top_k = 10
+rerank_top_k = 3
+max_chunks_once_load = 10
+
+[rag.storage.vector]
+type = "chroma"
+persist_path = "${env:ECOMMERCE_VECTOR_DIR}"
+
+[models]
+[[models.llms]]
+name = "${env:LLM_MODEL_NAME}"
+provider = "proxy/openai"
+api_base = "${env:LLM_API_BASE}"
+api_key = "${env:LLM_API_KEY}"
+
+# Requires the project launcher, which registers the proxy/bailian adapters.
+[[models.embeddings]]
+name = "${env:EMBEDDING_MODEL_NAME}"
+provider = "proxy/bailian"
+api_url = "${env:EMBEDDING_API_URL}"
+api_key = "${env:DASHSCOPE_API_KEY}"
+concurrency = 4
+
+[[models.rerankers]]
+name = "${env:RERANKER_MODEL_NAME}"
+provider = "proxy/bailian"
+api_url = "${env:RERANKER_API_URL}"
+api_key = "${env:DASHSCOPE_API_KEY}"
+concurrency = 4

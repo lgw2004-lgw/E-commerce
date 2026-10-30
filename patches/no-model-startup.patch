@@ -1,0 +1,25 @@
+--- a/packages/dbgpt-core/src/dbgpt/model/cluster/worker/manager.py
++++ b/packages/dbgpt-core/src/dbgpt/model/cluster/worker/manager.py
+@@ -1239,6 +1239,12 @@
+         worker_params.host = binding_host or "127.0.0.1"
+         logger.info(f"Worker params: {worker_params}")
+         _setup_fastapi(worker_params, app, ignore_exception=True, system_app=system_app)
++        # The UI and datasource services can run before a model is configured.
++        # Model-management endpoints still need a real (initially empty) manager.
++        if worker_manager.worker_manager is None:
++            worker_manager.worker_manager = _create_local_model_manager(
++                worker_params, model_storage
++            )
+         for llm_deploy_config in models_config.llms:
+             # Multiple LLMs
+             _start_local_worker(
+@@ -1247,7 +1253,8 @@
+                 llm_deploy_config,
+                 model_storage=model_storage,
+             )
+-        worker_manager.after_start(start_listener)
++        # The app listener builds schema embeddings; defer it without embeddings.
++        worker_manager.after_start(start_listener if models_config.embeddings else None)
+         for embedding_deploy_config in models_config.embeddings:
+             _start_local_embedding_worker(
+                 worker_manager,

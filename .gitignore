@@ -1,0 +1,16 @@
+/.venv/
+/.env*
+!/.env.example
+/data/
+/logs/
+/work/
+*.zip
+*.pid
+__pycache__/
+*.py[cod]
+node_modules/
+.next/
+.pytest_cache/
+*.tsbuildinfo
+python_uploads/
+/DB-GPT/cache/

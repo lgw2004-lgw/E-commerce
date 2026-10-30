@@ -1,0 +1,24 @@
+[system]
+language = "zh"
+api_keys = []
+encrypt_key = "${env:ECOMMERCE_ENCRYPT_KEY}"
+
+[service.web]
+host = "127.0.0.1"
+port = 5670
+default_thread_pool_size = 4
+cors_allowed_origins = "http://127.0.0.1:5670,http://localhost:5670"
+
+[service.web.database]
+type = "sqlite"
+path = "${env:ECOMMERCE_META_DB}"
+
+[rag.storage.vector]
+type = "chroma"
+persist_path = "${env:ECOMMERCE_VECTOR_DIR}"
+
+# UI/database-only deployment: no model downloads and no API calls.
+[models]
+llms = []
+embeddings = []
+rerankers = []
